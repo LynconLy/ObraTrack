@@ -1,0 +1,20 @@
+/* Estilos novos do React (o resto vem do seu style.css, copiado para index.css) */
+.modal-fundo {
+  position: fixed; inset: 0; z-index: 20; padding: 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, .5);
+}
+.modal { background: #fff; border-radius: 16px; padding: 20px; width: min(92vw, 460px); max-height: 90vh; overflow: auto; }
+.op-icone-btn.marcado { border-color: var(--azul); background: #e3edf4; }
+
+/* Barra de abas fixa na parte de baixo (Orçamentos | Obras) */
+main { padding-bottom: 90px; }
+.abas {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex;
+  background: #fff; border-top: 1px solid var(--borda); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.abas button {
+  flex: 1; min-height: 60px; border: none; background: none; cursor: pointer;
+  font-size: 1rem; font-weight: 600; color: var(--texto-suave);
+}
+.abas button.ativa { color: var(--azul); box-shadow: inset 0 3px 0 var(--azul); }

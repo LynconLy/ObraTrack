@@ -1,0 +1,188 @@
+/* ===== Variáveis de cor: mude aqui para trocar o visual do app inteiro ===== */
+:root {
+  --fundo: #edebe7;      /* cinza concreto */
+  --card: #ffffff;
+  --texto: #1f2a33;
+  --texto-suave: #5f6b73;
+  --borda: #d9d5cd;
+  --destaque: #f5b700;   /* amarelo de sinalização (barra de progresso) */
+  --azul: #2f5d7c;       /* botões principais */
+  --verde: #2e7d4f;      /* tarefa concluída */
+  --vermelho: #b3382c;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.4;
+}
+
+[hidden] { display: none !important; }
+
+/* ===== Cabeçalho ===== */
+.topo {
+  background: var(--texto);
+  color: #fff;
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+.logo { font-weight: 700; font-size: 1.15rem; }
+
+main { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+h1 { font-size: 1.5rem; margin: 0; }
+h2 { font-size: 1.15rem; margin: 0 0 12px; }
+
+.titulo-linha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* ===== Botões (grandes para facilitar o toque no celular) ===== */
+.btn {
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--texto);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn.primario { background: var(--azul); border-color: var(--azul); color: #fff; }
+.btn.perigo { color: var(--vermelho); }
+.btn.pequeno { min-height: 40px; padding: 0 12px; font-size: .9rem; }
+.btn:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--destaque);
+  outline-offset: 2px;
+}
+
+/* ===== Cards de obra ===== */
+.grade { display: grid; gap: 14px; grid-template-columns: 1fr; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 16px;
+}
+.card h3 { margin: 0 0 2px; font-size: 1.1rem; }
+.suave { color: var(--texto-suave); font-size: .92rem; margin: 0; }
+
+.card-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+
+/* Etiqueta de status */
+.status {
+  font-size: .8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: #e4e1da;
+  white-space: nowrap;
+}
+.status.andamento { background: #fdeeb3; }
+.status.concluida { background: #cfe8d8; color: var(--verde); }
+.status.pausada { background: #f0d3cf; color: var(--vermelho); }
+
+/* ===== Barra de progresso ===== */
+.progresso { margin: 14px 0 6px; display: flex; align-items: center; gap: 10px; }
+.barra { flex: 1; height: 14px; background: #e4e1da; border-radius: 99px; overflow: hidden; }
+.barra > div { height: 100%; background: var(--destaque); transition: width .3s; }
+.percentual { font-weight: 700; min-width: 42px; text-align: right; }
+
+/* ===== Tela de detalhes ===== */
+.info { display: grid; gap: 8px; margin: 14px 0; font-size: .95rem; }
+.info b { color: var(--texto-suave); font-weight: 600; }
+select {
+  min-height: 40px; border-radius: 8px; border: 1px solid var(--borda);
+  padding: 0 8px; font-size: 1rem; background: #fff;
+}
+
+.tarefas-topo { display: flex; justify-content: space-between; align-items: center; margin: 22px 0 12px; }
+.tarefas-topo h2 { margin: 0; }
+
+.tarefa {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+}
+.tarefa input[type="checkbox"] { width: 28px; height: 28px; accent-color: var(--verde); flex-shrink: 0; }
+.tarefa .nome { flex: 1; word-break: break-word; }
+.tarefa.concluida .nome { text-decoration: line-through; color: var(--texto-suave); }
+.tarefa .acoes { display: flex; gap: 6px; }
+.tarefa .valor { margin: 2px 0 0; font-weight: 700; font-size: .95rem; }
+
+/* Botão redondo que muda a situação da tarefa */
+.estado {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 50%; border: 2px solid var(--borda);
+  background: #fff; font-size: 1.3rem; cursor: pointer;
+}
+.estado.andamento { border-color: var(--destaque); background: #fdeeb3; }
+.estado.concluida { border-color: var(--verde); background: var(--verde); color: #fff; }
+
+.vazio { text-align: center; color: var(--texto-suave); padding: 24px 0; }
+
+/* ===== Modais ===== */
+dialog {
+  width: min(92vw, 460px);
+  border: none;
+  border-radius: 16px;
+  padding: 20px;
+}
+dialog::backdrop { background: rgba(0, 0, 0, .5); }
+label { display: block; font-weight: 600; font-size: .92rem; margin-bottom: 12px; }
+input, textarea {
+  display: block; width: 100%; margin-top: 4px; padding: 11px 12px;
+  border: 1px solid var(--borda); border-radius: 8px; font: inherit; font-weight: 400;
+}
+.botoes { display: flex; gap: 10px; justify-content: flex-end; margin-top: 8px; }
+.botoes .btn { flex: 1; }
+
+/* ===== Telas maiores: 2 colunas na lista ===== */
+@media (min-width: 640px) {
+  .grade { grid-template-columns: 1fr 1fr; }
+  .info { grid-template-columns: 1fr 1fr; }
+}
+
+.tarefa .texto { flex: 1; min-width: 0; }
+.tarefa .nome { display: block; }
+.tarefa .obs { margin: 2px 0 0; font-size: .9rem; color: var(--texto-suave); }
+
+/* ===== Escolha de ícone ===== */
+.icones { border: none; padding: 0; margin: 0 0 12px; }
+.icones legend { font-weight: 600; font-size: .92rem; margin-bottom: 6px; padding: 0; }
+.grade-icones { display: grid; grid-template-columns: repeat(auto-fill, minmax(52px, 1fr)); gap: 8px; margin-bottom: 12px; }
+.op-icone { margin: 0; cursor: pointer; }
+.op-icone input { position: absolute; opacity: 0; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; }
+.op-icone span, .op-icone-btn {
+  display: flex; align-items: center; justify-content: center;
+  height: 52px; font-size: 1.6rem; background: #fff;
+  border: 2px solid var(--borda); border-radius: 12px; cursor: pointer;
+}
+.op-icone input:checked + span { border-color: var(--azul); background: #e3edf4; }
+.op-icone input:focus-visible + span { outline: 3px solid var(--destaque); }
+
+/* Botão do ícone ao lado do nome, na tela da obra */
+.icone-obra {
+  width: 44px; height: 44px; font-size: 1.4rem; vertical-align: middle;
+  border: none; border-radius: 10px; background: #e4e1da; cursor: pointer;
+}
+
+/* Destaca o campo obrigadorio em vermelho */
+input:user-invalid, textarea:user-invalid { border-color: var(--vermelho); }
